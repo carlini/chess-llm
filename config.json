@@ -1,0 +1,5 @@
+{
+    "model": "gpt-3.5-turbo-instruct",
+    "temperature": 0,
+    "num_lookahead_tokens": 20
+}
