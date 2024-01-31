@@ -83,7 +83,12 @@ def process_puzzles(csv_filename, games_filename, mapping):
         for row in reader:
             game_url, uci_moves = row[8], row[2].split()
             game_id = game_url.split('.org/')[1]
-            move_num = int(game_url.split('#')[-1])
+
+            move_num = game_url.split('#')[-1]
+            if 'Some' in move_num:
+                move_num = move_num.split("(")[1][:-1]
+            move_num = int(move_num)
+
             game_id = game_id.split("/")[0].split("#")[0]
             rating = int(row[3])
 
@@ -101,7 +106,7 @@ def process_puzzles(csv_filename, games_filename, mapping):
 
                 try:
                     solution = []
-                    for move in uci_moves[1:]:
+                    for move in uci_moves:
                         m = chess.Move.from_uci(move)
                         solution.append(new_board.san(m))
                         new_board.push(m)

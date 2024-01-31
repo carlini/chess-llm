@@ -30,7 +30,14 @@ def convert_pgn_to_game(pgn_moves):
 def solve_puzzle(board, solution):
     solution = solution.split()
     while True:
+        if len(solution) > 0:
+            opponent_move, *solution = solution
+            board.push_san(opponent_move)
+        else:
+            break
+
         guess_next_move = engine.get_best_move(board)
+
         real_next_move, *solution = solution
         if guess_next_move != real_next_move:
             try:
@@ -42,11 +49,6 @@ def solve_puzzle(board, solution):
                 pass
             return False
         board.push_san(guess_next_move)
-        if len(solution) > 0:
-            opponent_move, *solution = solution
-            board.push_san(opponent_move)
-        else:
-            break
     return True
 
 def main():
