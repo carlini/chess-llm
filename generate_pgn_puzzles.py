@@ -99,7 +99,7 @@ def process_puzzles(csv_filename, games_filename, mapping):
 
                 board = game.board()
 
-                for move in list(game.mainline_moves())[:move_num]:
+                for move in list(game.mainline_moves())[:move_num-1]:
                     board.push(move)
 
                 new_board = board.copy()
